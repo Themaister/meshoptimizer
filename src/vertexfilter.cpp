@@ -165,7 +165,7 @@ inline uint64_t rotateleft64(uint64_t v, int x)
 	return _rotl64(v, x);
 // Apple's Clang 8 is actually vanilla Clang 3.9, there we need to look for
 // version 11 instead: https://en.wikipedia.org/wiki/Xcode#Toolchain_versions
-#elif defined(__clang__) && ((!defined(__apple_build_version__) && __clang_major__ >= 8) || __clang_major__ >= 11)
+#elif !defined(ANDROID) && defined(__clang__) && ((!defined(__apple_build_version__) && __clang_major__ >= 8) || __clang_major__ >= 11)
 	return __builtin_rotateleft64(v, x);
 #else
 	return (v << (x & 63)) | (v >> ((64 - x) & 63));
